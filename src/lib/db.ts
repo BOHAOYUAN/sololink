@@ -29,7 +29,11 @@ interface DBData {
   orders: Order[];
 }
 
-const DB_FILE_PATH = path.join(process.cwd(), 'data_db.json');
+const isVercel = process.env.VERCEL || process.env.NODE_ENV === 'production';
+const DB_FILE_PATH = isVercel
+  ? path.join('/tmp', 'data_db.json')
+  : path.join(process.cwd(), 'data_db.json');
+
 
 function readDB(): DBData {
   try {
