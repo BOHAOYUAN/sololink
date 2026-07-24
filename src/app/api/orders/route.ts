@@ -10,12 +10,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: '请填写交易单号或上传凭证截图' }, { status: 400 });
     }
 
-    const product = db.getProductById(productId);
+    const product = await db.getProductById(productId);
     if (!product) {
       return NextResponse.json({ error: '产品不存在' }, { status: 404 });
     }
 
-    const order = db.createOrder({
+    const order = await db.createOrder({
       productId,
       buyerNote: buyerNote || '扫码支付凭证',
       paymentProofUrl,

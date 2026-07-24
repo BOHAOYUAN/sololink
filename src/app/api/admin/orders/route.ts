@@ -10,12 +10,12 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: '缺少管理 Token' }, { status: 401 });
     }
 
-    const product = db.getProductByManageToken(manageToken);
+    const product = await db.getProductByManageToken(manageToken);
     if (!product) {
       return NextResponse.json({ error: '无效的管理 Token' }, { status: 403 });
     }
 
-    const orders = db.getOrdersByProductId(product.id);
+    const orders = await db.getOrdersByProductId(product.id);
 
     return NextResponse.json({ product, orders });
   } catch (err: any) {

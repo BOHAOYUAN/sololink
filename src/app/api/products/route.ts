@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: '请填写完整的必填项信息（邮箱、标题、价格、收款码及交付内容）' }, { status: 400 });
     }
 
-    const product = db.createProduct({
+    const product = await db.createProduct({
       creatorEmail,
       title,
       description: description || '',
